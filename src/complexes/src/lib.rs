@@ -15,9 +15,13 @@ use jni::sys::{jdouble};
 // This keeps Rust from "mangling" the name and making it unique for this
 // crate.
 #[no_mangle]
-pub extern "system" fn Java_Main_negDistance(_env: JNIEnv,
+pub extern "system" fn Java_Main_negDistance(env: JNIEnv,
                                              _class: JClass,
                                              _complex: JObject)
                                              -> jdouble {
-    1.1
+    let re = env.get_field(_complex, "re", "D").unwrap().d().unwrap();
+    let im = env.get_field(_complex, "im", "D").unwrap().d().unwrap();
+    let neg_dist = f64::sqrt(re * re + im * im);
+    println!("In rust code, returns {}", neg_dist);
+    neg_dist
 }
