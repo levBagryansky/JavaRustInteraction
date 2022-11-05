@@ -16,7 +16,7 @@ class Main {
 
     public static void main(String[] args) {
         String output = Main.concat("Hello", "world");
-        //System.out.println(output);
+        System.out.println(output);
         Complex comp = new Complex(2, 2);
         double anti_dist = negDistance(comp);
         System.out.println("anti_dist = " + anti_dist);

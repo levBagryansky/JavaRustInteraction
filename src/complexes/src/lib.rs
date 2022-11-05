@@ -21,7 +21,8 @@ pub extern "system" fn Java_Main_negDistance(env: JNIEnv,
                                              -> jdouble {
     let re = env.get_field(_complex, "re", "D").unwrap().d().unwrap();
     let im = env.get_field(_complex, "im", "D").unwrap().d().unwrap();
-    let neg_dist = f64::sqrt(re * re + im * im);
-    println!("In rust code, returns {}", neg_dist);
+    println!("Get \"re\" and \"im\" inside rust, \"re\" = {}, \"im\" = {}", re, im);
+    let java_dist = env.call_method(_complex, "Distance", "()D", &[]).unwrap().d().unwrap();
+    let neg_dist = -java_dist;
     neg_dist
 }
