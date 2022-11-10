@@ -1,3 +1,6 @@
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 class Main {
     // This declares that the static `concat` method will be provided
     // a native library.
@@ -5,16 +8,13 @@ class Main {
 
     private static native double negDistance(Complex comp);
 
-    static {
-        // This actually loads the shared object that we'll be creating.
-        // The actual location of the .so or .dll may differ based on your
-        // platform.
-        System.load("/home/tardis3/JavaExpr/src/strings/target/debug/libstrings.so");
-        System.load("/home/tardis3/JavaExpr/src/complexes/target/debug/libcomplexes.so");
-        //System.loadLibrary("strings");
-    }
-
     public static void main(String[] args) {
+        Path strings = Paths.get("./strings/target/debug/libstrings.so");
+        System.load(strings.toAbsolutePath().toString());
+
+        Path complexes = Paths.get("./complexes/target/debug/libcomplexes.so");
+        System.load(complexes.toAbsolutePath().toString());
+
         String concated = Main.concat("Hello", "world");
         System.out.println(concated);
         Complex comp = new Complex(2, 2);
